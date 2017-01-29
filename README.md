@@ -80,7 +80,7 @@ $ npm run android               # Deploy the app to the already running emulator
 - `npm run android-emulator` - launch Android Virtual Device Manager (to start emulator)
 - `npm run android` - run app on emulator and show logs in terminal
 - `npm run reinstall` - wipe out `node_modules`, reset `watchman`, then install `node_modules` again
-- `npm run upgrade` - `react-native upgrade`, then `react-native link` (BE SURE TO READ THE UPGRADE DOC ABOVE!)
+- `npm run upgrade` - `react-native upgrade`, then `react-native link`
 
 ### Support
 
