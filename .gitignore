@@ -53,5 +53,6 @@ fastlane/Preview.html
 fastlane/screenshots
 
 # -- custom ignores below -- #
+.vscode/
 *.zip
 ios/main.jsbundle*
