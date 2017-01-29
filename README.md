@@ -1,4 +1,4 @@
-# Constelation's Typescript React-Native Starter
+# Constelation's React-Native Starter (Typescript)
 A starter repo for iOS and Android with a Navigator, TabBar, and MobX store for app state.
 
 ### Up and Running
