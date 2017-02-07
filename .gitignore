@@ -57,4 +57,3 @@ fastlane/screenshots
 *.zip
 ios/main.jsbundle*
 yarn-error.log
-.vscode/launchReactNative.js
