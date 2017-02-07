@@ -26,8 +26,10 @@
         "noImplicitAny": true,
         "experimentalDecorators": true,
         "preserveConstEnums": true,
-        "removeComments": true,
-        "allowJs": true
+        "removeComments": true
+       // "allowJs": true
+        // "sourceMap": true
+
     },
     "filesGlob": [
         "app/**/*.ts",

@@ -32,22 +32,22 @@
     ]
   },
   "dependencies": {
-    "constelation-animate_": "^7.0.0",
-    "constelation-event_": "^7.0.0",
-    "constelation-image": "^7.0.0",
-    "constelation-scroll-view": "^7.0.0",
-    "constelation-style_": "^7.0.1",
-    "constelation-text": "^7.0.2",
-    "constelation-view": "^7.0.1",
+    "constelation-animate_": "^10.0.0",
+    "constelation-event_": "^7.0.3",
+    "constelation-image": "^7.0.3",
+    "constelation-scroll-view": "^7.0.3",
+    "constelation-style_": "^8.0.0",
+    "constelation-text": "^7.0.3",
+    "constelation-view": "^7.0.3",
     "lodash": "^4.17.4",
-    "mobx": "^3.0.2",
+    "mobx": "^3.1.0",
     "mobx-react": "^4.1.0",
     "react": "^15.4.2",
     "react-native": "^0.40.0",
-    "react-native-router-flux": "^3.30.0"
+    "react-navigation": "^1.0.0-beta.1"
   },
   "devDependencies": {
-    "@types/react": "^15.0.4",
+    "@types/react": "^15.0.6",
     "@types/react-native": "^0.37.11",
     "babel-jest": "^18.0.0",
     "babel-plugin-module-resolver": "^2.4.0",
@@ -61,7 +61,7 @@
     "react-test-renderer": "^15.4.2",
     "rimraf": "^2.5.4",
     "tslint": "^4.4.2",
-    "tslint-eslint-rules": "^3.2.3",
+    "tslint-eslint-rules": "^3.3.0",
     "tslint-react": "^2.3.0",
     "typescript": "^2.1.5"
   },
