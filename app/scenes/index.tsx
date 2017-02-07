@@ -1,73 +1,81 @@
-import Image from 'constelation-image'
+import mobx from 'mobx'
+import { Provider } from 'mobx-react/native'
 import React from 'react'
-// import { Actions, Modal, Scene } from 'react-native-router-flux'
-// HACK: type Scene to any while typedef is invalid
-import { Actions, Modal } from 'react-native-router-flux'
-const Scene: any = require('react-native-router-flux').Scene
+import { StyleSheet } from 'react-native'
+import { StackNavigator, TabNavigator, TabView } from 'react-navigation'
+
+import counter from 'stores/counter'
 
 import Dummy from './Dummy'
 import Home from './Home'
-import Profile from './Profile'
-import ProfileDetail from './ProfileDetail'
+import ProfileNavigator from './ProfileNavigator'
 import Showcase from './Showcase'
 
-const showcaseIconSource = require('images/icon-bonfire.png')
+// -- MobX --
+// throw an exception on any attempt to modify MobX state outside an action
+mobx.useStrict( true )
 
-// const VectorIcon = props => (
-//   <Icon
-//     name={props.iconName}
-//     size={24}
-//     color={props.selected ? 'black' : '#929292'}
-//   />
-// )
-
-interface IPropsImageIcon {
-  imageSource?: number,
-  selected?: boolean,
+// log all mobx actions when in development mode
+if (__DEV__) {
+  mobx.spy( ev => {
+    if (ev.type === 'action') {
+      /* tslint:disable */
+      console.log( ev.name )
+      /* tslint:enable */
+    }
+  })
 }
 
-const ImageIcon = (props: IPropsImageIcon) => (
-  <Image
-    source={props.imageSource}
-    style={props.selected && { tintColor: 'black' }}
-  />
+const stores = { counter }
+
+// -- Routes --
+// TODO: consider moving Tabs to its own folder
+const Tabs = TabNavigator({
+  Home: {
+    screen: Home,
+  },
+  ProfileNavigator: {
+    screen: ProfileNavigator,
+  },
+  Showcase: {
+    screen: Showcase,
+  },
+}, {
+  lazyLoad: true,
+  tabBarComponent: TabView.TabBarBottom, // override Android's default of top
+  tabBarOptions: {
+    activeTintColor: '#111',
+    showIcon: true,
+  },
+})
+
+const App = StackNavigator({
+  Tabs: {
+    screen: Tabs,
+  },
+  Dummy: {
+    screen: Dummy,
+  },
+}, {
+  headerMode: 'none',
+  // mode: 'modal',
+},
 )
 
-function handleShowProfileDetail() {
-  Actions['profileDetail']()
+export default class Root extends React.Component<void, void> {
+  render() {
+    return (
+      <Provider {...stores} >
+        <App cardStyle={styles.card} />
+      </Provider>
+    )
+  }
 }
 
-// Root is wrapped in a Modal for the full screen from bottom scenes, like Dummy
-// The first 2 Scenes are important configuration for the rest of the app!
-export default Actions.create(
-  <Scene key='modal' component={Modal} >
-    <Scene key='root' hideTabBar hideNavBar >
-
-      <Scene key='tabbar' tabs direction='vertical' >
-
-        <Scene key='homeTab' icon={ImageIcon} imageSource={showcaseIconSource} >
-          <Scene key='home' component={Home} title='Home' initial />
-          <Scene key='fullDetail' component={Dummy} hideNavBar hideTabBar direction='horizontal' type='push' />
-        </Scene>
-
-        <Scene key='profileTab' icon={ImageIcon} imageSource={showcaseIconSource} >
-          <Scene
-            key='profile'
-            component={Profile}
-            title='Profile'
-            rightTitle='Detail'
-            onRight={handleShowProfileDetail}
-          />
-
-          <Scene key='profileDetail' component={ProfileDetail} title='Profile Detail' hideTabBar />
-
-        </Scene>
-
-        <Scene key='showcase' component={Showcase} title='Showcase' icon={ImageIcon} imageSource={showcaseIconSource} />
-      </Scene>
-
-      <Scene key='fullModal' component={Dummy} direction='vertical' hideNavBar />
-
-    </Scene>
-  </Scene>,
-)
+// Kind of a bummer that this style override is necessary to need see the grey default here:
+// https://github.com/react-community/react-navigation/blob/master/src/views/Card.js#L81
+const styles = StyleSheet.create({
+  card: {
+    backgroundColor: 'white',
+  },
+})

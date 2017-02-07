@@ -1,22 +1,25 @@
 import { inject, observer } from 'mobx-react/native'
 import React from 'react'
 import { Counter } from 'stores/counter'
-
-import Profile from './Profile'
+import ProfileDetail from './ProfileDetail'
 
 interface IProps {
   counter: Counter
 }
 
 @inject('counter') @observer
-export default class ProfileContainer extends React.Component<IProps, void> {
+export default class ProfileDetailContainer extends React.Component<IProps, void> {
+  static navigationOptions = {
+    title: () => `Profile Detail`,
+  }
+
   handleIncreaseCounter = () => {
     this.props.counter.increase()
   }
 
   render() {
     return (
-      <Profile
+      <ProfileDetail
         value={this.props.counter.value}
         onIncreaseCounter={this.handleIncreaseCounter}
       />

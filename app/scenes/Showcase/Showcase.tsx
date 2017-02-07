@@ -1,11 +1,11 @@
-import Animate_ from 'constelation-animate_'
+import Animate_, { AnimationConfig, emitAnimationEvent } from 'constelation-animate_'
 import Event_ from 'constelation-event_'
 import Image from 'constelation-image'
 import ScrollView from 'constelation-scroll-view'
 import Style_ from 'constelation-style_'
-import Text from 'constelation-text'
 import View from 'constelation-view'
 import React from 'react'
+import BoxSequence from './_/BoxSequence'
 
 const box1Animation = {
   from: {
@@ -20,150 +20,125 @@ const box1Animation = {
   },
 }
 
-export default class Showcase extends React.Component<void, void> {
-  // box1: React.ReactElement<Animate_>
-  box1: any
+interface IState {
+  startLogoAnimation: boolean,
+}
 
-  // What's this!? I can still define a custom navBar from within my component.
-  // Will likely need this for a NavBar that animates up on scroll.
-  static renderNavigationBar( /*props*/) {
-    return (
-      <Style_
-        backgroundColor='#EFEFEF'
-        borderBottomWidth={0.5}
-        borderBottomColor='#828287'
-      >
-        <View
-          alignVertical='center'
-          paddingTop={10}
-          position='absolute'
-          top={0}
-          height={64}
-          right={0}
-          left={0}
-        >
-          <Text
-            center
-            weight='500'
-            size={18}
-            color='#111111'
-          >
-            Showcase
-          </Text>
-        </View>
-      </Style_>
+export default class Showcase extends React.Component<void, IState> {
+  static navigationOptions = {
+    tabBar: {
+      label: 'Showcase',
+      icon: ({ tintColor }: { tintColor: string }) => (
+        <Image
+          source={require('images/icon-lab.png')}
+          tintColor={tintColor}
+        />
+       ),
+    },
+  }
+
+  state = {
+    startLogoAnimation: false,
+  }
+
+  componentDidMount() {
+    // Note the global event emitted
+    // Not the best example. but showing that it is possible
+    setTimeout(
+      () => {
+        emitAnimationEvent('BOX_SEQUENCE')
+      },
+      1000,
     )
   }
 
-  triggerBox1Animation = () => {
-    this.box1.trigger()
+  handleStartLogoAnimation = () => {
+    this.setState({startLogoAnimation: true})
   }
 
-  setBox1Ref = (ref: View) => {
-    this.box1 = ref
+  handleEndLogoAnimation = () => {
+    this.setState( {startLogoAnimation: false} )
   }
 
   render() {
     return (
-      <ScrollView
-        grow
-        marginTop={65}
-        marginBottom={50}
-      >
-        <View
-          horizontal
+      <AnimationConfig timingMultiplier={10} >
+        <ScrollView
+          grow
+          marginTop={65}
+          marginBottom={50}
         >
-          <Event_
-            hitSlop={20}
-            onPress={this.triggerBox1Animation}
-            // Note: this effect doesn't work because Animate_ replaces Opacity
-            pressEffect='opacity'
-          >
+
+          <BoxSequence />
+
+          <Event_ onPress={this.handleStartLogoAnimation} >
             <Animate_
-              // repeat
-              ref={this.setBox1Ref}
-              autoplay={false}
-              duration={1000}
-              delay={200}
-              easing='inOut'
-              // animation='fade-in'
-              animation={box1Animation}
-              // tslint:disable-next-line:no-console jsx-no-lambda brace-style
-              onStart={() => { console.log('onStart') }}
-              // tslint:disable-next-line:no-console jsx-no-lambda brace-style
-              onEnd={() => { console.log('onEnd') }}
+              start={this.state.startLogoAnimation}
+              repeat={2}
+              direction='alternate'
+              animation={`
+              0: {
+                opacity: 0.5,
+                translateX: 0,
+                rotate: '0deg',
+              },
+              0.5: {
+                opacity: 0,
+                translateX: 100,
+                rotate: '180deg',
+              },
+              1: {
+                opacity: 1,
+                translateX: 200,
+                rotate: '360deg',
+              },
+            `}
+              duration={800}
+              easing='linear'
+              onEnd={this.handleEndLogoAnimation}
             >
-              <Style_ backgroundColor='purple' >
-                <View height={200} />
-              </Style_>
+              <Image source={require('images/logo.png')} />
             </Animate_>
           </Event_>
 
-          <Animate_
-            duration={400}
-            animation='fadeOut'
+          <Style_
+            backgroundColor='lightgrey'
+            opacity={0.5}
+            rotate='123deg'
+            translateX={40}
           >
-            <Style_ backgroundColor='green' >
-              <View height={200} width={200} />
-            </Style_>
-          </Animate_>
-        </View>
+            <View horizontal height={200} >
+              <Style_ backgroundColor='red' >
+                <View width={50} />
+              </Style_>
+              <Style_ backgroundColor='green' >
+                <View width={50} />
+              </Style_>
+              <Style_ backgroundColor='blue' >
+                <View width={50} />
+              </Style_>
+            </View>
+          </Style_>
 
-        <Animate_
-          animation={{
-            0: {
-              opacity: 0.5,
-            },
-            0.5: {
-              opacity: 0,
-              left: 20,
-            },
-            1: {
-              opacity: 1,
-              left: 0,
-            },
-          }}
-          // easing={Easing.sin}
-          duration={400}
-        >
-          <Image source={require('images/logo.png')} />
-        </Animate_>
+          <Style_
+            backgroundColor='grey'
+            opacity={0.5}
+          >
+            <View height={200} >
+              <Style_ backgroundColor='red' >
+                <View height={50} />
+              </Style_>
+              <Style_ backgroundColor='green' >
+                <View height={50} />
+              </Style_>
+              <Style_ backgroundColor='blue' >
+                <View height={50} />
+              </Style_>
+            </View>
+          </Style_>
 
-        <Style_
-          backgroundColor='lightgrey'
-          opacity={0.5}
-        >
-          <View horizontal height={200} >
-            <Style_ backgroundColor='red' >
-              <View width={50} />
-            </Style_>
-            <Style_ backgroundColor='green' >
-              <View width={50} />
-            </Style_>
-            <Style_ backgroundColor='blue' >
-              <View width={50} />
-            </Style_>
-          </View>
-        </Style_>
-
-        <Style_
-          backgroundColor='grey'
-          opacity={0.5}
-        >
-          <View height={200} >
-            <Style_ backgroundColor='red' >
-              <View height={50} />
-            </Style_>
-            <Style_ backgroundColor='green' >
-              <View height={50} />
-            </Style_>
-            <Style_ backgroundColor='blue' >
-              <View height={50} />
-            </Style_>
-          </View>
-        </Style_>
-
-      </ScrollView>
+        </ScrollView>
+      </AnimationConfig>
     )
   }
 }

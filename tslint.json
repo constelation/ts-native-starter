@@ -54,7 +54,7 @@
         //-- Style --\\
         "align": [
             true,
-            "arguments",
+            // "arguments",
             "parameters",
             "statements"
         ],
@@ -87,6 +87,7 @@
             "check-whitespace"
         ],
         "object-literal-sort-keys": false,
+        "max-line-length": false,
         //-- JS --\\
         "arrow-parens": [
             true,

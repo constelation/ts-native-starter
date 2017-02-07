@@ -1,11 +1,6 @@
-// @flow
-// Imports {{{
-
 import { AppRegistry } from 'react-native'
 
-import App from './build/scenes/App'
-
-// }}}
+import App from './build/scenes'
 
 // This disables a useful, but sometimes annoying warning message in the app
 // Comment it to re-enable YellowBox

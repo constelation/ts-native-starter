@@ -6,11 +6,16 @@ import React from 'react'
 import {
   StatusBar,
 } from 'react-native'
-import { Actions } from 'react-native-router-flux'
 
-export default class Dummy extends React.Component<void, void> {
+interface IProps {
+  navigation: {
+    goBack: Function,
+  },
+}
+
+export default class Dummy extends React.Component<IProps, void> {
   handlePress = () => {
-    Actions.pop()
+    this.props.navigation.goBack()
   }
 
   render() {
