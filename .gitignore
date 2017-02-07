@@ -56,3 +56,4 @@ fastlane/screenshots
 .vscode/
 *.zip
 ios/main.jsbundle*
+yarn-error.log
