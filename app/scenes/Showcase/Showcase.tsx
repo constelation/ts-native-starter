@@ -1,10 +1,12 @@
 import Animate_, { AnimationConfig, emitAnimationEvent } from 'constelation-animate_'
-import Event_ from 'constelation-event_'
+// import Event_ from 'constelation-event_'
 import Image from 'constelation-image'
 import ScrollView from 'constelation-scroll-view'
 import Style_ from 'constelation-style_'
 import View from 'constelation-view'
 import React from 'react'
+import Event from 'shared/Event'
+import Style from 'shared/Style'
 import BoxSequence from './_/BoxSequence'
 
 const box1Animation = {
@@ -33,7 +35,7 @@ export default class Showcase extends React.Component<void, IState> {
           source={require('images/icon-lab.png')}
           tintColor={tintColor}
         />
-       ),
+      ),
     },
   }
 
@@ -53,11 +55,11 @@ export default class Showcase extends React.Component<void, IState> {
   }
 
   handleStartLogoAnimation = () => {
-    this.setState({startLogoAnimation: true})
+    this.setState({ startLogoAnimation: true })
   }
 
   handleEndLogoAnimation = () => {
-    this.setState( {startLogoAnimation: false} )
+    this.setState({ startLogoAnimation: false })
   }
 
   render() {
@@ -71,7 +73,10 @@ export default class Showcase extends React.Component<void, IState> {
 
           <BoxSequence />
 
-          <Event_ onPress={this.handleStartLogoAnimation} >
+          <Event
+            pressEffect='opacity'
+            onPress={this.handleStartLogoAnimation}
+          >
             <Animate_
               start={this.state.startLogoAnimation}
               repeat={2}
@@ -99,7 +104,7 @@ export default class Showcase extends React.Component<void, IState> {
             >
               <Image source={require('images/logo.png')} />
             </Animate_>
-          </Event_>
+          </Event>
 
           <Style_
             backgroundColor='lightgrey'
@@ -120,22 +125,20 @@ export default class Showcase extends React.Component<void, IState> {
             </View>
           </Style_>
 
-          <Style_
+          <Style
             backgroundColor='grey'
             opacity={0.5}
           >
-            <View height={200} >
-              <Style_ backgroundColor='red' >
-                <View height={50} />
-              </Style_>
-              <Style_ backgroundColor='green' >
-                <View height={50} />
-              </Style_>
-              <Style_ backgroundColor='blue' >
-                <View height={50} />
-              </Style_>
-            </View>
-          </Style_>
+            <Style_ backgroundColor='red' >
+              <View height={50} />
+            </Style_>
+            <Style_ backgroundColor='green' >
+              <View height={50} />
+            </Style_>
+            <Style_ backgroundColor='blue' >
+              <View height={50} />
+            </Style_>
+          </Style>
 
         </ScrollView>
       </AnimationConfig>

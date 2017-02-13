@@ -1,9 +1,9 @@
-import Animate_ from 'constelation-animate_'
 import Event_ from 'constelation-event_'
 import Image from 'constelation-image'
 import View from 'constelation-view'
 import React from 'react'
 
+import Animate from 'shared/Animate'
 import Button from 'shared/Button'
 import Logo from './_/Logo'
 
@@ -47,7 +47,7 @@ export default class Home extends React.Component<IProps, void> {
         center
         grow
       >
-        <Animate_
+        <Animate
           start
           animation={`
             0: {
@@ -64,29 +64,25 @@ export default class Home extends React.Component<IProps, void> {
           easing='out'
           onEndEvent={EVENTS.END_HERO}
         >
-          <View>
-            <Logo />
-          </View>
-        </Animate_>
+          <Logo />
+        </Animate>
 
-        <Animate_
+        <Animate
           startOnEvent={EVENTS.END_HERO}
           animation='fadeIn'
           duration={300}
         >
-          <View>
-            <Button
-              marginTop={60}
-              label='Full screen Detail scene'
-              onPress={this.handleShowFullScreenModal}
-            />
-            <Button
-              marginTop={30}
-              label='Full screen Modal scene'
-              onPress={this.handleShowFullScreenModalScene}
-            />
-          </View>
-        </Animate_>
+          <Button
+            marginTop={60}
+            label='Full screen Detail scene'
+            onPress={this.handleShowFullScreenModal}
+          />
+          <Button
+            marginTop={30}
+            label='Full screen Modal scene'
+            onPress={this.handleShowFullScreenModalScene}
+          />
+        </Animate>
 
       </View>
     )
