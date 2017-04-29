@@ -82,6 +82,9 @@ $ npm run android               # Deploy the app to the already running emulator
 - `npm run reinstall` - wipe out `node_modules`, reset `watchman`, then install `node_modules` again
 - `npm run upgrade` - `react-native upgrade`, then `react-native link`
 
+### Learn More
+[Typescript, React Native and Sourcemaps - React Native at Microsoft](http://www.reactnative.tools/tutorials/2016/09/20/reactnative-ts/)
+
 ### Support
 
   * Talk to @kylpo
