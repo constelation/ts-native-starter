@@ -52,11 +52,11 @@ export default class Home extends React.Component<IProps, void> {
           animation={`
             0: {
               translateY: 100,
-              scale: 0.70
+              scale: 1
             },
             1: {
               translateY: 0,
-              scale: 1
+              scale: 1.3
             }
           `}
           duration={400}
